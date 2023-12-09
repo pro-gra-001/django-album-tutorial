@@ -1,3 +1,4 @@
+## 视图函数
 from django.shortcuts import render, redirect
 from photo.models import Photo
 from django.contrib.auth import authenticate, login, logout
@@ -15,23 +16,23 @@ import oss2
 class ObjIterator(oss2.ObjectIteratorV2):
     # 初始化时立即抓取图片数据
     def __init__(self, bucket):
-        super().__init__(bucket)
-        self.fetch_with_retry()
+        super().__init__(bucket)    ## super()是内嵌函数，用于调用父类方法
+        self.fetch_with_retry()     ## 在网络请求失败时自动重试
 
     # 分页要求实现__len__
-    def __len__(self):
-        return len(self.entries)
+    def __len__(self):              ## 返回当前迭代器中对象数量
+        return len(self.entries)    ## entries()方法获取所有对象信息并返回一个列表
 
     # 分页要求实现__getitem__
-    def __getitem__(self, key):
-        return self.entries[key]
+    def __getitem__(self, key):   ##根据文件名获取文件信息  
+        return self.entries[key]## key指当前文件的文件名
 
     # 修改图片排序方式
-    def _fetch(self):
-        result = self.bucket.list_objects_v2(prefix=self.prefix,
-                                          delimiter=self.delimiter,
-                                          continuation_token=self.next_marker,
-                                          start_after=self.start_after,
+    def _fetch(self):## list_objects_v2()方法获取对象列表
+        result = self.bucket.list_objects_v2(prefix=self.prefix,      ## prefix属性获取当前对象前缀或文件名
+                                          delimiter=self.delimiter,   ## 表示当前迭代器针对的分隔符，用于区分目录和文件
+                                          continuation_token=self.next_marker,##下一个分页的marker,用于继续遍历对象列表
+                                          start_after=self.start_after,## 指定迭代器开始位置
                                           fetch_owner=self.fetch_owner,
                                           encoding_type=self.encoding_type,
                                           max_keys=self.max_keys,
@@ -41,7 +42,7 @@ class ObjIterator(oss2.ObjectIteratorV2):
         # 让图片以上传时间倒序
         self.entries.sort(key=lambda obj: -obj.last_modified)
 
-        return result.is_truncated, result.next_continuation_token
+        return result.is_truncated, result.next_continuation_token  ## is_truncated表示当前分页是否被截断，即是否存在更多的对象等待获取
 
 def oss_home(request):
     raise ValueError("""

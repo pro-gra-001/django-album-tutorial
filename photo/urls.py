@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 
 app_name = 'photo'
 
-urlpatterns = [
+urlpatterns = [ ##路由,url
     path('', home, name='home'),
     path('upload/', upload, name='upload'),
     path('oss-home/', oss_home, name='oss_home'),

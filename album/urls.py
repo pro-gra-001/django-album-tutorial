@@ -6,7 +6,7 @@ from photo.views import home
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
+urlpatterns = [## 根路由，没有使用子路由
     path('admin/', admin.site.urls),
     path('photo/', include('photo.urls', namespace='photo')),
     path('', home, name='home'),

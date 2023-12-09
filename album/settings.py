@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+## 项目根目录  __file__指当前文件绝对路径，17行的意思是找到当前文件的父目录的父目录
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,16 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-totn20y*cv_h4qmoippn&dlu!^_6b)(&h_1$h0tav38^w=%2tc'
+SECRET_KEY = 'django-insecure-totn20y*cv_h4qmoippn&dlu!^_6b)(&h_1$h0tav38^w=%2tc'##项目的密钥
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True##是否使用调试模式，True表示开发模式，改代码时会自动重启，不用来回关 False表示非调试模式，一般用于上线部署
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']##被允许的域名或IP  *表示通配符，匹配所有IP，所有IP都可以匹配(局域网内)
 
 
 # Application definition
-
+##应用定义
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,26 +38,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    ## 自己定义的应用要写到这里面，否则会受到限制（自己创建的一定要自己加）
     'photo',
 ]
-
+##中间件
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',##安全处理
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+## 指定根路由的文件
 ROOT_URLCONF = 'album.urls'
-
+##模板
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],##指定模板文件夹
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,13 +69,13 @@ TEMPLATES = [
         },
     },
 ]
-
+##wsgi目录
 WSGI_APPLICATION = 'album.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+##数据库  默认是sqlite数据库，单线程
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -85,7 +86,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-
+##密码验证
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -104,10 +105,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
+##国际化  地区、语言等配置
+LANGUAGE_CODE = 'zh-hans' ## 默认是英语  中文为 zh-hans
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'##时区
 
 USE_I18N = True
 
@@ -119,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL  = '/static/'
+STATIC_URL  = '/static/'##静态文件（CSS Javascript Image）
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
@@ -128,7 +129,7 @@ STATIC_ROOT = BASE_DIR / 'collected_static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
+##默认主键字段类型
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
